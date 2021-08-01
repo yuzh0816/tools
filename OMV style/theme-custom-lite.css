@@ -1,0 +1,101 @@
+/**
+ * OMV LITE v0.1
+ * by yuzh
+ */
+
+.x-btn-default-small, .x-btn-default-toolbar-small {
+	border-radius: 8px;
+}
+.x-dashboard-panel, .x-window-default, .x-form-trigger-default, .x-webkit .x-form-text {
+	overflow: hidden;
+	border-radius: 8px;
+}
+.x-window-header-default, .x-panel-header-default-horizontal.x-header-noborder {
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+.x-form-trigger-wrap-default {
+	border-radius: 5px;
+}
+.x-autowidth-table .x-grid-item {
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+.x-tab-over.x-tab-default, .x-tab-focus.x-tab-over.x-tab-default, .x-grid-item-focused .x-grid-cell-inner:before, .x-tab-focus.x-tab-default {
+	border: 1px solid #ffffff00;
+	outline: 1px solid #ffffff00;
+}
+.x-message-box-guru-body {
+	color: #596a7a;
+}
+@keyframes x-message-box-guru-border-flash {
+	0% {
+		border-color: #596a7a;
+	}
+	50% {
+		border-color: #25577d;
+	}
+	51% {
+		border-color: #596a7a;
+	}
+	100% {
+		border-color: #25577d;
+	}
+}
+.x-tab-bar-default, .x-tab.x-tab-active.x-tab-default .x-tab-inner-default {
+	color: #82a1b5;
+}
+.x-tab-bar-default, .x-window-header-default .x-tool-img {
+	background-color: #82a1b5;
+}
+.x-btn-over.x-btn-default-small {
+	border-color: #3385b9;
+	background-color: #3385b9;
+}
+.x-btn-default-small, .x-panel-header-default .x-tool-tool-el, .x-window-header-default, .x-panel-header-default {
+	border-color: #82a1b5;
+	background-color: #82a1b5;
+}
+.x-window-default {
+	border-color: #82a1b5;
+}
+.login-page, div#header {
+	background: #98b9ce;
+}
+.x-panel-default {
+	border-color: #82a1b5;
+}
+.x-panel-header-default {
+	border: 1px solid #82a1b5;
+}
+.x-progress-default .x-progress-bar-default {
+	background-color: #40af53;
+}
+.x-color-green, .x-color-boolean-true, .x-color-good {
+	color: #40af53;
+}
+/*Scrollbar*/
+::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  width: 6px;
+  background: rgba(#101F1C, 0.1);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(130,161,181,.5);
+  background-clip: padding-box;
+  min-height: 28px;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+  transition: background-color .3s;
+  cursor: pointer;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(130,161,181,.3);
+}
