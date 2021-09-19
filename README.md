@@ -7,3 +7,6 @@ A tool which is used to expand your 'hosts' file.(FOR Windows)
 
 ### 2. rname.bat
 'rname' can easily rename your **"\*.in"** / **"\*.out"** file into **"a\*.in"** / **"a\*.out"** file
+
+### 3. Windows Insider Offline.cmd
+Chinese(Simplified) Script from [OfflineInsiderEnroll](https://github.com/abbodi1406/offlineinsiderenroll)
