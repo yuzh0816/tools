@@ -14,3 +14,6 @@ A tool which is used to expand your 'hosts' file.(FOR Windows)
 
 ### 3. [Windows Insider Offline.cmd](https://github.com/yuzh0816/tools/blob/master/Windows%20Insider%20Offline.cmd)
 A Chinese(Simplified) Script from [Offline Insider Enroll Project](https://github.com/abbodi1406/offlineinsiderenroll).
+
+### 4. [RING](https://github.com/yuzh0816/tools/tree/master/RING)(Automatic Bell Machine)
+An Automatic Bell Machine. Based on nircmd. Easy to use.
