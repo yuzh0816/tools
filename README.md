@@ -17,3 +17,9 @@ A Chinese(Simplified) Script from [Offline Insider Enroll Project](https://githu
 
 ### 4. [RING](https://github.com/yuzh0816/tools/tree/master/RING)(Automatic Bell Machine)
 An Automatic Bell Machine. Based on nircmd. Easy to use.
+
+### 5. [Meeting Counter]()
+An online meeting people counting tool.
+#### 使用方法
+把要使用的截图所在路径替换此处（建议把此程序也放在这个目录中）
+![162423145-1b6dd11c-be25-4385-ae8f-c34981f626ec](https://user-images.githubusercontent.com/46953451/163558787-d56d0f22-9801-405a-8b3f-bb9842dffd0f.png)
