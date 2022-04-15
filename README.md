@@ -21,7 +21,7 @@ An Automatic Bell Machine. Based on nircmd. Easy to use.
 ### 5. [Meeting Counter]()
 An online meeting people counting tool.
 
-#### 使用方法
+#### Usage
 
 Replace here with the path of the screenshot you want to use (it is recommended to put this script in this directory)
 
