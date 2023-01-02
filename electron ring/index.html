@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>自动打铃系统</title>
+  <link rel="stylesheet" href="layui/css/layui.css">
+  <style>
+    body::-webkit-scrollbar {
+      display: none;
+    }
+
+    .layui-nav .layui-nav-item a {
+      padding: 0px;
+    }
+
+    .layui-nav-item,
+    .layui-nav .layui-nav-item {
+      font-size: 15px;
+      line-height: 40px;
+    }
+
+    .layui-control-button {
+      font-size: 15px;
+      vertical-align: middle;
+      line-height: 40px;
+      float: right;
+      margin-left: 10px;
+    }
+
+    .layui-nav-inside {
+      -webkit-app-region: no-drag;
+    }
+
+    .layui-show {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <ul class="layui-nav" style="-webkit-app-region: drag;">
+    <li class="layui-nav-inside layui-nav-item"><a href="">铃声系统</a></li>
+    <i class="layui-nav-inside layui-icon layui-icon-close layui-control-button" onclick="closeWin()"></i>
+    <i class="layui-nav-inside layui-icon layui-icon-screen-restore layui-control-button" onclick="minimizeWin()"></i>
+  </ul>
+
+  <div class="layui-container">
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+      <ul class="layui-tab-title">
+        <li class="layui-this">自动打铃</li>
+        <li>设置</li>
+        <li>关于</li>
+      </ul>
+      <div class="layui-tab-content"></div>
+      <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+          <h2>
+            打铃系统标准时间
+          </h2>
+          <div id="showTime" style="font-size: 80px;padding: 20px;"></div>
+          <button onclick="playAudio();swalring();" id="clickButton" class="layui-btn" alt="打铃">手动打铃</button>
+          <audio src="enhanced.wav" controls="controls" preload id="musicPlay" hidden></audio>
+        </div>
+        <div class="layui-tab-item">
+          <h1>设置</h1>
+          <p>本页面可以修改打铃系统的默认时间。</p>
+          <br><br>
+          <form class="layui-form" action="">
+            <div class="layui-form-item">
+              <label class="layui-form-label"></label>
+              <div class="layui-input-inline" style="width: 120px;">
+                <select id="change-time" name="change-time" lay-verify="required" lay-search>
+                  <option value="">选择时间点</option>
+                </select>
+              </div>
+              <label class="layui-form-label">更改成</label>
+              <div class="layui-input-inline" style="width: 75px;">
+                <select name="hour" lay-verify="required" lay-search>
+                  <option value="">小时</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                </select>
+              </div>
+              <div class="layui-input-inline" style="width: 75px;">
+                <select name="minute" lay-verify="required" lay-search>
+                  <option value="">分钟</option>
+                  <option value="0">0</option>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                  <option value="20">20</option>
+                  <option value="25">25</option>
+                  <option value="30">30</option>
+                  <option value="35">35</option>
+                  <option value="40">40</option>
+                  <option value="45">45</option>
+                  <option value="50">50</option>
+                  <option value="55">55</option>
+                </select>
+              </div>
+              
+              <div class="layui-form-item" style="padding-top: 20px;">
+                <div class="layui-input-block">
+                  <button class="layui-btn" lay-submit lay-filter="formDemo">确认更改</button>
+                  <button type="reset" class="layui-btn layui-btn-primary">清空</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="layui-tab-item">
+          <h2>用法介绍</h2>
+          <p>点击“手动打铃”即可打铃。其余时间自动打铃。</p>
+          <br>
+          <h2>开发</h2>
+          <p>基于Electron与Node.js，主要语言为HTML、Javascript</p>
+          <br>
+          <h2>开源</h2>
+          <p>本项目开源，可在<a href="https://github.com/yuzh0816/">我的Github</a>上查看。</p>
+          <p style="position: fixed; bottom: 40px;left: 0;right: 0;margin: auto;">由<a href="https://yuzh.tech" id="site">yuzh</a>设计并开发</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--import javascript-->
+  <script src="./axios.min.js"></script>
+  <script src="./sql-optimized.js"></script>
+  <script src="./js/check.js"></script>
+  <script src="./js/sweetalert.min.js"></script>
+  <script src="layui/layui.js"></script>
+  <script src="./renderer.js"></script>
+  <script>
+    layui.use('element', function () {
+      var element = layui.element;
+    });
+  </script>
+</body>
+
+</html>

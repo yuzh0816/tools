@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>sqlite数据库测试</title>
+    <script src="./axios.min.js"></script>
+    <script src="./sql-optimized.js"></script>
+    <script>
+        var fs = require("fs");
+        let res = null;
+        axios.get("test.db", { responseType: 'arraybuffer' })
+            .then(function (response) {
+                let db = new window.SQL.Database(new Uint8Array(response.data));
+                // 执行查询
+                let s = new Date().getTime();
+                let r = db.exec("SELECT * FROM time_schedule;");
+                let e = new Date().getTime();
+                console.info("查询数据耗时：" + (e - s) + "ms");
+                // 解析数据
+                checkTime = dbToObj(r);
+                var selector = document.getElementById("change-time");
+                for (var i = 0; i < checkTime.length; i++) {
+                    var option = document.createElement("option");
+                    console.info(checkTime[i].hour);
+                    option.value = checkTime[i].id;
+                    //获取checkTime[i].id对应的时间点hour和minute，小于10的在前面均要补0，如：09:30
+                    option.text = checkTime[i].hour < 10 ? "0" + checkTime[i].hour : checkTime[i].hour;
+                    option.text += ":";
+                    option.text += checkTime[i].minute < 10 ? "0" + checkTime[i].minute : checkTime[i].minute;
+                    selector.appendChild(option);
+                }
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.on('submit(formDemo)', function (data) {
+                        var formResult=JSON.stringify(data.field);
+                        formResult=eval('('+formResult+')');
+                        //test.db中替换原先id中的数据，hour代表小时，minute代表分钟，change-time代表id
+                        console.info("UPDATE time_schedule SET hour="+formResult.hour+",minute="+formResult.minute+" WHERE id="+formResult['change-time']+";");
+                        db.run("UPDATE time_schedule SET hour="+formResult.hour+",minute="+formResult.minute+" WHERE id="+formResult['change-time']+";");
+                        //将修改后的数据重新导出到test.db中
+                        var data = db.export();
+                        //var buffer = Buffer.from(data,'binary');
+                        var buffer = new Buffer(data);
+                        fs.writeFileSync("test.db", buffer);
+                        console.info("修改成功");
+                        db.close();
+                        return false;
+                    });
+                });
+            })
+            .catch(function (error) {
+                console.info(error);
+            });
+        // 方法传入两个数组，第一个数组为key，第二个数组对应位置为value，此方法在Python中为zip()函数。
+        const ArraytoObj = (keys = [], values = []) => {
+            if (keys.length === 0 || values.length === 0) return {};
+            const len = keys.length > values.length ? values.length : keys.length;
+            const obj = {};
+            for (let i = 0; i < len; ++i) {
+                obj[keys[i]] = values[i]
+            }
+            return obj;
+        };
+        // 转驼峰表示：func.camel('USER_ROLE',true) => UserRole
+        // 转驼峰表示：func.camel('USER_ROLE',false) => userRole
+        const camel = (str, firstUpper = false) => {
+            let ret = str.toLowerCase();
+            ret = ret.replace(/_([\w+])/g, function (all, letter) {
+                return letter.toUpperCase();
+            });
+            if (firstUpper) {
+                ret = ret.replace(/\b(\w)(\w*)/g, function ($0, $1, $2) {
+                    return $1.toUpperCase() + $2;
+                });
+            }
+            return ret;
+        };
+        // 把数组里面的所有转化为驼峰命名
+        const camelArr = (arrs = []) => {
+            let _arrs = [];
+            arrs.map(function (item) {
+                _arrs.push(camel(item));
+            });
+            return _arrs;
+        };
+        // 读取数据库
+        // 1.把columns转化为驼峰；
+        // 2.把columns和values进行组合；
+        const dbToObj = (_data = {}) => {
+            let _res = [];
+            _data.map(function (item) {
+                let _columns = camelArr(item.columns);
+                item.values.map(function (values) {
+                    _res.push(ArraytoObj(_columns, values));
+                });
+            });
+            return _res;
+        };
+    </script>
+
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.js"></script>
+</head>
+
+<body>
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择框</label>
+            <div class="layui-input-inline">
+                <select id="change-time" name="change-time" lay-verify="required" lay-search>
+                    <option value="">选择时间点</option>
+                </select>
+            </div>
+            <label class="layui-form-label">更改成</label>
+            <!-- 使用两个选择框，一个为小时，一个为分钟，此处小时范围在6-22，分钟的间隔为5 -->
+            <div class="layui-input-inline">
+                <select name="hour" lay-verify="required" lay-search>
+                    <option value="">小时</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="minute" lay-verify="required" lay-search>
+                    <option value="">分钟</option>
+                    <option value="0">0</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                    <option value="30">30</option>
+                    <option value="35">35</option>
+                    <option value="40">40</option>
+                    <option value="45">45</option>
+                    <option value="50">50</option>
+                    <option value="55">55</option>
+                </select>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>
