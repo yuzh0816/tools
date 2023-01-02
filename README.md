@@ -26,3 +26,8 @@ An online meeting people counting tool.
 Replace here with the path of the screenshot you want to use (it is recommended to put this script in this directory)
 
 ![162423145-1b6dd11c-be25-4385-ae8f-c34981f626ec](https://user-images.githubusercontent.com/46953451/163558787-d56d0f22-9801-405a-8b3f-bb9842dffd0f.png)
+
+## Applications
+
+### 1. [Electron Ring](https://github.com/yuzh0816/tools/tree/master/electron%20ring)
+An **automatic** ring program based on Electron.
